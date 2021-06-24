@@ -7,21 +7,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class App {
-    private static Random rnd = new Random();
-
-    public String getRandomNumber(int digCount) {
-        StringBuilder sb = new StringBuilder(digCount);
-        for(int i = 0; i < digCount; i++)
-            sb.append((char)('0' + rnd.nextInt(10)));
-        return sb.toString();
-    }
-
     public static void main(String[] args) {
         int digit = Integer.parseInt(args[0]);
         if (digit > 10 || digit <= 0) {
             System.out.println("digit to high or low");
         } else {
-            System.out.println(new App().getRandomNumber(digit));
+            System.out.println(new RandomNumberService().getRandomNumber(digit));
         }
     }
 }
