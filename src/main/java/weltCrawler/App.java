@@ -17,10 +17,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(args));
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter number of digits (min: 1 max: 10): ");
-        int digit = sc.nextInt();
+        int digit = Integer.parseInt(args[0]);
         if (digit > 10 || digit <= 0) {
             System.out.println("digit to high or low");
         } else {
