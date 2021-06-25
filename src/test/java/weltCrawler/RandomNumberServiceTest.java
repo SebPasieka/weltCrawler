@@ -11,7 +11,6 @@ public class RandomNumberServiceTest {
 
     @Test
     public void testRightNumberOfDigits() {
-
         int actual = systemUnderTest.getRandomNumber(2).length();
         Assert.assertEquals(2, actual);
         Assert.assertNotEquals(4, actual);

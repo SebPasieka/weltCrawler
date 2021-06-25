@@ -7,18 +7,18 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) {
 
-        class WeltCrawlerApp {
-            public String run(String[] args) {
-                int digit = Integer.parseInt(args[0]);
-                if (digit > 10 || digit <= 0) {
-                    return "digit too high or low";
-                } else {
-                    return new RandomNumberService().getRandomNumber(digit);
-                }
+    static class WeltCrawlerApp {
+        public String run(String[] args) {
+            int digit = Integer.parseInt(args[0]);
+            if (digit > 10 || digit <= 0) {
+                return "digit too high or low";
+            } else {
+                return new RandomNumberService().getRandomNumber(digit);
             }
         }
+    }
+    public static void main(String[] args) {
 
         WeltCrawlerApp myApp = new WeltCrawlerApp();
         String output = myApp.run(args);
