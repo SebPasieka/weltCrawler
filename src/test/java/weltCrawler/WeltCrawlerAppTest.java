@@ -6,8 +6,8 @@ package weltCrawler;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class AppTest {
-     App.WeltCrawlerApp systemUnderTest = new App.WeltCrawlerApp();
+public class WeltCrawlerAppTest {
+     WeltCrawlerApp systemUnderTest = new WeltCrawlerApp();
 
     @Test
     public void testErrorMessage() {
