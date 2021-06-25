@@ -8,11 +8,20 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        int digit = Integer.parseInt(args[0]);
-        if (digit > 10 || digit <= 0) {
-            System.out.println("digit to high or low");
-        } else {
-            System.out.println(new RandomNumberService().getRandomNumber(digit));
+
+        class WeltCrawlerApp {
+            public String run(String[] args) {
+                int digit = Integer.parseInt(args[0]);
+                if (digit > 10 || digit <= 0) {
+                    return "digit too high or low";
+                } else {
+                    return new RandomNumberService().getRandomNumber(digit);
+                }
+            }
         }
+
+        WeltCrawlerApp myApp = new WeltCrawlerApp();
+        String output = myApp.run(args);
+        System.out.println(output);
     }
 }

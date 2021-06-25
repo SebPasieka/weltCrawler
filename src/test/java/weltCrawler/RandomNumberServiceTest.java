@@ -5,23 +5,22 @@ package weltCrawler;
 
 import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class RandomNumberServiceTest {
-    RandomNumberService classUnderTest = new RandomNumberService();
+    RandomNumberService systemUnderTest = new RandomNumberService();
 
     @Test
     public void testRightNumberOfDigits() {
 
-        int actual = classUnderTest.getRandomNumber(2).length();
+        int actual = systemUnderTest.getRandomNumber(2).length();
         Assert.assertEquals(2, actual);
         Assert.assertNotEquals(4, actual);
     }
 
     @Test
     public void testDifferentResults() {
-        String results1 = classUnderTest.getRandomNumber(8);
-        String results2 = classUnderTest.getRandomNumber(8);
+        String results1 = systemUnderTest.getRandomNumber(8);
+        String results2 = systemUnderTest.getRandomNumber(8);
         Assert.assertNotEquals(results1, results2);
     }
 }
