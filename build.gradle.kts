@@ -21,20 +21,18 @@ repositories {
 }
 
 dependencies {
-    // This dependency is used by the application.
-    implementation("com.google.guava:guava:28.0-jre")
 
     // Use JUnit test framework
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.2")
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = "weltCrawler.App"
+    mainClassName = "weltCrawler.app"
 }
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "weltCrawler.App"
+        attributes["Main-Class"] = "weltCrawler.app"
     }
 }
