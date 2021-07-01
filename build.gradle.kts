@@ -28,11 +28,11 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = "weltCrawler.App"
+    mainClassName = "com.github.sebPasieka.weltCrawler.App"
 }
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "weltCrawler.App"
+        attributes["Main-Class"] = "com.github.sebPasieka.weltCrawler.App"
     }
 }

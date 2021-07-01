@@ -1,11 +1,11 @@
-package weltCrawler;
+package com.github.sebPasieka.weltCrawler.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import service.Fetcher;
+import com.github.sebPasieka.weltCrawler.service.RssFetcher;
 
-public class FetcherTest {
-    Fetcher systemUnderTest = new Fetcher();
+public class RssFetcherTest {
+    RssFetcher systemUnderTest = new RssFetcher();
 
     @Test
     public void testCreateURLWithExistingRessort() {
@@ -19,9 +19,7 @@ public class FetcherTest {
     @Test
     public void testShowThatRessortDontExist() {
         String givenRessort = "BILD";
-        String actual = systemUnderTest.createURL(givenRessort);
-        String expect = "";
 
-        Assert.assertEquals(expect, actual);
+        Assert.assertThrows(IllegalArgumentException.class, () -> systemUnderTest.createURL(givenRessort));
     }
 }

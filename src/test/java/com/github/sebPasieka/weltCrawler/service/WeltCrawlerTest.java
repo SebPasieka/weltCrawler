@@ -1,5 +1,6 @@
-package weltCrawler;
+package com.github.sebPasieka.weltCrawler.service;
 
+import com.github.sebPasieka.weltCrawler.service.WeltCrawler;
 import org.junit.Assert;
 import org.junit.Test;
 
