@@ -1,10 +1,10 @@
 package weltCrawler;
 
-import service.fetcher;
+import service.Fetcher;
 
-public class app {
+public class App {
     public static void main(String[] args) {
-        fetcher fetch = new fetcher();
+        Fetcher fetch = new Fetcher();
         fetch.fetchXML(args);
     }
 }

@@ -1,7 +1,7 @@
 package weltCrawler;
 
 
-public class weltCrawler {
+public class WeltCrawler {
     public String getRessort(String[] args) {
         String ressort = "";
         for (String i : args) {

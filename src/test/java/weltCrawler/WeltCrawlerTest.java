@@ -3,8 +3,8 @@ package weltCrawler;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class weltCrawlerTest {
-     weltCrawler systemUnderTest = new weltCrawler();
+public class WeltCrawlerTest {
+     WeltCrawler systemUnderTest = new WeltCrawler();
 
     @Test
     public void testRecognizeParameterAsNumber() {

@@ -2,10 +2,10 @@ package weltCrawler;
 
 import org.junit.Assert;
 import org.junit.Test;
-import service.fetcher;
+import service.Fetcher;
 
-public class fetcherTest {
-    fetcher systemUnderTest = new fetcher();
+public class FetcherTest {
+    Fetcher systemUnderTest = new Fetcher();
 
     @Test
     public void testCreateURLWithExistingRessort() {

@@ -1,11 +1,11 @@
 package service;
 
 
-import weltCrawler.weltCrawler;
+import weltCrawler.WeltCrawler;
 
-public class fetcher {
+public class Fetcher {
     public void fetchXML(String[] args) {
-        weltCrawler arguments = new weltCrawler();
+        WeltCrawler arguments = new WeltCrawler();
         String ressort = arguments.getRessort(args);
         int number = arguments.getNumber(args);
         System.out.println(ressort);
