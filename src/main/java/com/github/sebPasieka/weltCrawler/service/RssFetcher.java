@@ -1,9 +1,7 @@
 package com.github.sebPasieka.weltCrawler.service;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -52,62 +50,60 @@ public class RssFetcher {
 
     public String createURL(String ressort) throws IllegalArgumentException {
         String url = "";
-        String ressortPath = "";
 
         // correct the name of the ressort
 
         if (ressort.equalsIgnoreCase(Ressorts.POLITIK.name())) {
-            ressortPath = Ressorts.POLITIK.ressortPath();
+            url = Ressorts.POLITIK.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.WIRTSCHAFT.name())) {
-            ressortPath = Ressorts.WIRTSCHAFT.ressortPath();
+            url = Ressorts.WIRTSCHAFT.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.BILANZ.name())) {
-            ressortPath = Ressorts.BILANZ.ressortPath();
+            url = Ressorts.BILANZ.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.GELD.alias())) {
-            ressortPath = Ressorts.GELD.ressortPath();
+            url = Ressorts.GELD.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.DIGITAL.alias())) {
-            ressortPath = Ressorts.DIGITAL.ressortPath();
+            url = Ressorts.DIGITAL.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.WISSEN.alias())) {
-            ressortPath = Ressorts.WISSEN.ressortPath();
+            url = Ressorts.WISSEN.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.KULTUR.name())) {
-            ressortPath = Ressorts.KULTUR.ressortPath();
+            url = Ressorts.KULTUR.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.SPORT.name())) {
-            ressortPath = Ressorts.SPORT.ressortPath();
+            url = Ressorts.SPORT.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.ICON.name())) {
-            ressortPath = Ressorts.ICON.ressortPath();
+            url = Ressorts.ICON.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.GESUNDHEIT.name())) {
-            ressortPath = Ressorts.GESUNDHEIT.ressortPath();
+            url = Ressorts.GESUNDHEIT.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.PANORAMA.alias())) {
-            ressortPath = Ressorts.PANORAMA.ressortPath();
+            url = Ressorts.PANORAMA.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.MOTOR.name())) {
-            ressortPath = Ressorts.MOTOR.ressortPath();
+            url = Ressorts.MOTOR.url();
         }
         if (ressort.equalsIgnoreCase(Ressorts.REISE.name())) {
-            ressortPath = Ressorts.REISE.ressortPath();
+            url = Ressorts.REISE.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.REGIONAL.alias())) {
-            ressortPath = Ressorts.REGIONAL.ressortPath();
+            url = Ressorts.REGIONAL.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.MEINUNG.alias())) {
-            ressortPath = Ressorts.MEINUNG.ressortPath();
+            url = Ressorts.MEINUNG.url();
         }
 
 
         // check if ressort exists
         Ressorts[] allRessorts = Ressorts.values();
         for (Ressorts r: allRessorts) {
-                   if (ressortPath.equalsIgnoreCase(r.ressortPath())) {
-                       url = "https://www.welt.de/feeds/section/" + ressortPath;
+                   if (url.equals(r.url())) {
                        return url;
                    }
         }
