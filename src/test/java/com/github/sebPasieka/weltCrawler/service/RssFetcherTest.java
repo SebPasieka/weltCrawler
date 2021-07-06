@@ -30,9 +30,4 @@ public class RssFetcherTest {
 
         Assert.assertThrows(IllegalArgumentException.class, () -> systemUnderTest.manageInputAndReturnUrl(givenRessort));
     }
-
-    @Test
-    public void testStatusCodeToBe200() {
-
-    }
 }

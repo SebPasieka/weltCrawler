@@ -40,13 +40,13 @@ public class RssFetcher {
     public String manageInputAndReturnUrl(String ressort) throws IllegalArgumentException {
         String url = null;
 
-        if (ressort.equalsIgnoreCase(Ressorts.POLITIK.name())) {
+        if (containsCaseInsensitive(ressort, Ressorts.POLITIK.alias())) {
             url = Ressorts.POLITIK.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.WIRTSCHAFT.name())) {
+        if (containsCaseInsensitive(ressort, Ressorts.WIRTSCHAFT.alias())) {
             url = Ressorts.WIRTSCHAFT.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.BILANZ.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.BILANZ.alias())) {
             url = Ressorts.BILANZ.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.GELD.alias())) {
@@ -58,25 +58,25 @@ public class RssFetcher {
         if (containsCaseInsensitive(ressort, Ressorts.WISSEN.alias())) {
             url = Ressorts.WISSEN.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.KULTUR.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.KULTUR.alias())) {
             url = Ressorts.KULTUR.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.SPORT.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.SPORT.alias())) {
             url = Ressorts.SPORT.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.ICON.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.ICON.alias())) {
             url = Ressorts.ICON.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.GESUNDHEIT.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.GESUNDHEIT.alias())) {
             url = Ressorts.GESUNDHEIT.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.PANORAMA.alias())) {
             url = Ressorts.PANORAMA.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.MOTOR.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.MOTOR.alias())) {
             url = Ressorts.MOTOR.url();
         }
-        if (ressort.equalsIgnoreCase(Ressorts.REISE.name())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.REISE.alias())) {
             url = Ressorts.REISE.url();
         }
         if (containsCaseInsensitive(ressort, Ressorts.REGIONAL.alias())) {

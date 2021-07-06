@@ -15,7 +15,7 @@ public enum Ressorts {
     SPORT("https://www.welt.de/feeds/section/sport.rss"),
     ICON("https://www.welt.de/feeds/section/icon.rss"),
     GESUNDHEIT("https://www.welt.de/feeds/section/gesundheit.rss"),
-    PANORAMA("https://www.welt.de/feeds/section/vermischtes.rss", "Panorama", "Vermischte"),
+    PANORAMA("https://www.welt.de/feeds/section/vermischtes.rss", "Panorama", "Vermischtes"),
     MOTOR("https://www.welt.de/feeds/section/motor.rss"),
     REISE("https://www.welt.de/feeds/section/reise.rss"),
     REGIONAL("https://www.welt.de/feeds/section/regionales.rss", "Regional", "Regionales"),
