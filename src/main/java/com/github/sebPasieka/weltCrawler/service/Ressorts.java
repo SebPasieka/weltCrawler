@@ -8,7 +8,7 @@ public enum Ressorts {
     POLITIK("https://www.welt.de/feeds/section/politik.rss"),
     WIRTSCHAFT("https://www.welt.de/feeds/section/wirtschaft.rss"),
     BILANZ("https://www.welt.de/feeds/section/wirtschaft/bilanz.rss"),
-    GELD("https://www.welt.de/feeds/section/finanzen.rss", "Geld, Finanzen"),
+    GELD("https://www.welt.de/feeds/section/finanzen.rss", "Geld", "Finanzen"),
     DIGITAL("https://www.welt.de/feeds/section/wirtschaft/webwelt.rss", "Digital", "Webwelt"),
     WISSEN("https://www.welt.de/feeds/section/wissenschaft.rss", "Wissen", "Wissenschaft"),
     KULTUR("https://www.welt.de/feeds/section/kultur.rss"),
