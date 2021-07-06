@@ -10,7 +10,7 @@ public class RssFetcher {
     public void fetchXML(String[] args) throws IOException {
         WeltCrawler arguments = new WeltCrawler();
         String ressort = arguments.getRessort(args);
-        String url = createURL(ressort);
+        String url = manageInputAndReturnUrl(ressort);
         System.out.println(url);
 
         // HTTP GET Request
@@ -25,17 +25,6 @@ public class RssFetcher {
 
         System.out.println(statusCode);
 
-        /*BufferedReader in = new BufferedReader(
-                new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-
-         */
-
         connection.disconnect();
     }
 
@@ -48,10 +37,8 @@ public class RssFetcher {
         return false;
     }
 
-    public String createURL(String ressort) throws IllegalArgumentException {
-        String url = "";
-
-        // correct the name of the ressort
+    public String manageInputAndReturnUrl(String ressort) throws IllegalArgumentException {
+        String url = null;
 
         if (ressort.equalsIgnoreCase(Ressorts.POLITIK.name())) {
             url = Ressorts.POLITIK.url();
@@ -99,14 +86,10 @@ public class RssFetcher {
             url = Ressorts.MEINUNG.url();
         }
 
-
-        // check if ressort exists
-        Ressorts[] allRessorts = Ressorts.values();
-        for (Ressorts r: allRessorts) {
-                   if (url.equals(r.url())) {
-                       return url;
-                   }
+        if (url == null) {
+            throw new IllegalArgumentException("Ressort not found");
         }
-        throw new IllegalArgumentException("Ressort not found");
+
+        return url;
     }
 }

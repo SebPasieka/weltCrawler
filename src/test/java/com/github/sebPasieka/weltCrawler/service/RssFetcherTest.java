@@ -2,9 +2,6 @@ package com.github.sebPasieka.weltCrawler.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import com.github.sebPasieka.weltCrawler.service.RssFetcher;
-
-import java.io.IOException;
 
 public class RssFetcherTest {
     RssFetcher systemUnderTest = new RssFetcher();
@@ -12,7 +9,7 @@ public class RssFetcherTest {
     @Test
     public void testCreateURLWithExistingRessortWithAlias() {
         String givenRessort = "Wissen";
-        String actual = systemUnderTest.createURL(givenRessort);
+        String actual = systemUnderTest.manageInputAndReturnUrl(givenRessort);
         String expect = "https://www.welt.de/feeds/section/wissenschaft.rss";
 
         Assert.assertEquals(expect ,actual);
@@ -21,7 +18,7 @@ public class RssFetcherTest {
     @Test
     public void testCreateURLWithExistingRessortWithoutAlias() {
         String givenRessort = "Politik";
-        String actual = systemUnderTest.createURL(givenRessort);
+        String actual = systemUnderTest.manageInputAndReturnUrl(givenRessort);
         String expect = "https://www.welt.de/feeds/section/politik.rss";
 
         Assert.assertEquals(expect ,actual);
@@ -31,7 +28,7 @@ public class RssFetcherTest {
     public void testShowThatRessortDontExist() {
         String givenRessort = "BILD";
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> systemUnderTest.createURL(givenRessort));
+        Assert.assertThrows(IllegalArgumentException.class, () -> systemUnderTest.manageInputAndReturnUrl(givenRessort));
     }
 
     @Test
