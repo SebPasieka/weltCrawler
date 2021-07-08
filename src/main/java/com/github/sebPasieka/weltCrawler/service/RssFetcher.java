@@ -1,31 +1,30 @@
 package com.github.sebPasieka.weltCrawler.service;
 
 
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 public class RssFetcher {
-    public void fetchXML(String[] args) throws IOException {
+    public String fetchXML(String[] args) throws IOException {
         WeltCrawler arguments = new WeltCrawler();
         String ressort = arguments.getRessort(args);
         String url = manageInputAndReturnUrl(ressort);
-        System.out.println(url);
 
-        // HTTP GET Request
-        URL fetchUrl = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) fetchUrl.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
 
-        int statusCode = connection.getResponseCode();
+            HttpGet request = new HttpGet(url);
 
-        System.out.println(statusCode);
+            String response = client.execute(request, new BasicResponseHandler());
 
-        connection.disconnect();
+            System.out.println(response);
+            return response;
+        }
     }
 
     public boolean containsCaseInsensitive(String s, List<String> l){
@@ -40,49 +39,49 @@ public class RssFetcher {
     public String manageInputAndReturnUrl(String ressort) throws IllegalArgumentException {
         String url = null;
 
-        if (containsCaseInsensitive(ressort, Ressorts.POLITIK.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.POLITIK.aliases())) {
             url = Ressorts.POLITIK.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.WIRTSCHAFT.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.WIRTSCHAFT.aliases())) {
             url = Ressorts.WIRTSCHAFT.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.BILANZ.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.BILANZ.aliases())) {
             url = Ressorts.BILANZ.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.GELD.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.GELD.aliases())) {
             url = Ressorts.GELD.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.DIGITAL.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.DIGITAL.aliases())) {
             url = Ressorts.DIGITAL.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.WISSEN.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.WISSEN.aliases())) {
             url = Ressorts.WISSEN.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.KULTUR.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.KULTUR.aliases())) {
             url = Ressorts.KULTUR.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.SPORT.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.SPORT.aliases())) {
             url = Ressorts.SPORT.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.ICON.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.ICON.aliases())) {
             url = Ressorts.ICON.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.GESUNDHEIT.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.GESUNDHEIT.aliases())) {
             url = Ressorts.GESUNDHEIT.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.PANORAMA.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.PANORAMA.aliases())) {
             url = Ressorts.PANORAMA.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.MOTOR.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.MOTOR.aliases())) {
             url = Ressorts.MOTOR.url();
         }
-        if (containsCaseInsensitive(ressort ,Ressorts.REISE.alias())) {
+        if (containsCaseInsensitive(ressort ,Ressorts.REISE.aliases())) {
             url = Ressorts.REISE.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.REGIONAL.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.REGIONAL.aliases())) {
             url = Ressorts.REGIONAL.url();
         }
-        if (containsCaseInsensitive(ressort, Ressorts.MEINUNG.alias())) {
+        if (containsCaseInsensitive(ressort, Ressorts.MEINUNG.aliases())) {
             url = Ressorts.MEINUNG.url();
         }
 

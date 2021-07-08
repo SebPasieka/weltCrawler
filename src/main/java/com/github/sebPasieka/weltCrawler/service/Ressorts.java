@@ -38,7 +38,7 @@ public enum Ressorts {
         return this.url;
     }
 
-    public List<String> alias() {
+    public List<String> aliases() {
         return this.aliases;
     }
 }

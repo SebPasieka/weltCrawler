@@ -24,6 +24,12 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.13.2")
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
+
+    implementation("com.fasterxml.jackson.core:jackson-core:2.9.5")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.5")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.9.5")
+
 }
 
 application {
@@ -36,3 +42,4 @@ tasks.withType<Jar> {
         attributes["Main-Class"] = "com.github.sebPasieka.weltCrawler.App"
     }
 }
+
