@@ -1,19 +1,18 @@
 package com.github.sebPasieka.weltCrawler.service;
 
 
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
 public class RssFetcher {
-    public String fetchXML(String[] args) throws IOException {
-        WeltCrawler arguments = new WeltCrawler();
-        String ressort = arguments.getRessort(args);
+    public void fetchXML(String ressort) throws IOException {
         String url = manageInputAndReturnUrl(ressort);
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -22,8 +21,9 @@ public class RssFetcher {
 
             String response = client.execute(request, new BasicResponseHandler());
 
-            System.out.println(response);
-            return response;
+            BufferedWriter writer = new BufferedWriter(new FileWriter("rssFeed.xml"));
+            writer.write(response);
+            writer.close();
         }
     }
 
