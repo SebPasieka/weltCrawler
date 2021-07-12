@@ -1,11 +1,10 @@
 package com.github.sebPasieka.weltCrawler.service;
 
-import com.github.sebPasieka.weltCrawler.service.WeltCrawler;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class WeltCrawlerTest {
-     WeltCrawler systemUnderTest = new WeltCrawler();
+public class ProcessInputTest {
+     ProcessInput systemUnderTest = new ProcessInput();
 
     @Test
     public void testRecognizeParameterAsNumber() {

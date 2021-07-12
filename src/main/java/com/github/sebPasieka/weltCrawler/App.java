@@ -2,12 +2,12 @@ package com.github.sebPasieka.weltCrawler;
 
 import com.github.sebPasieka.weltCrawler.service.RssFetcher;
 import com.github.sebPasieka.weltCrawler.service.RssReader;
-import com.github.sebPasieka.weltCrawler.service.WeltCrawler;
+import com.github.sebPasieka.weltCrawler.service.ProcessInput;
 import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        WeltCrawler processInput = new WeltCrawler();
+        ProcessInput processInput = new ProcessInput();
         String ressort = processInput.getRessort(args);
         int number = processInput.getNumber(args);
 
@@ -15,6 +15,6 @@ public class App {
         fetch.fetchXML(ressort);
 
         RssReader read = new RssReader();
-        read.readMXL();
+        read.readMXL("rssFeed.xml");
     }
 }

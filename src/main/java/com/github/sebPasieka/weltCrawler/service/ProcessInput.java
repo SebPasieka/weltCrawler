@@ -1,7 +1,7 @@
 package com.github.sebPasieka.weltCrawler.service;
 
 
-public class WeltCrawler {
+public class ProcessInput {
     public String getRessort(String[] args) {
         String ressort = "";
         for (String i : args) {

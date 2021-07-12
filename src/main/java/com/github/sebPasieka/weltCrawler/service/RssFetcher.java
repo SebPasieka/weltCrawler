@@ -13,7 +13,7 @@ import java.util.List;
 
 public class RssFetcher {
     public void fetchXML(String ressort) throws IOException {
-        String url = manageInputAndReturnUrl(ressort);
+        String url = manageRessortAndReturnUrl(ressort);
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
 
@@ -36,7 +36,7 @@ public class RssFetcher {
         return false;
     }
 
-    public String manageInputAndReturnUrl(String ressort) throws IllegalArgumentException {
+    public String manageRessortAndReturnUrl(String ressort) throws IllegalArgumentException {
         String url = null;
 
         if (containsCaseInsensitive(ressort, Ressorts.POLITIK.aliases())) {
