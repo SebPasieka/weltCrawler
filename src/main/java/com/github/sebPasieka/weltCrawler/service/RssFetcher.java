@@ -9,11 +9,13 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RssFetcher {
-    public void fetchXML(String ressort) throws IOException {
+    public String fetchXML(String ressort) throws IOException {
         String url = manageRessortAndReturnUrl(ressort);
+        String fileName = "rssFeed.xml";
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
 
@@ -21,9 +23,10 @@ public class RssFetcher {
 
             String response = client.execute(request, new BasicResponseHandler());
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("rssFeed.xml"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             writer.write(response);
             writer.close();
+            return fileName;
         }
     }
 
