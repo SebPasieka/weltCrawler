@@ -3,14 +3,13 @@ package com.github.sebPasieka.weltCrawler.service;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 
 public class RssFetcherTest {
     RssFetcher systemUnderTest = new RssFetcher();
 
     @Test
-    public void testCreateURLWithExistingRessortWithAlias() {
+    public void rssFetcher_shouldCreateURLWithExistingRessortWithAlias() {
         String givenRessort = "Wissen";
         String actual = systemUnderTest.manageRessortAndReturnUrl(givenRessort);
         String expect = "https://www.welt.de/feeds/section/wissenschaft.rss";
@@ -19,7 +18,7 @@ public class RssFetcherTest {
     }
 
     @Test
-    public void testCreateURLWithExistingRessortWithoutAlias() {
+    public void rssFetcher_shouldCreateURLWithExistingRessortWithoutAlias() {
         String givenRessort = "Politik";
         String actual = systemUnderTest.manageRessortAndReturnUrl(givenRessort);
         String expect = "https://www.welt.de/feeds/section/politik.rss";
@@ -28,21 +27,31 @@ public class RssFetcherTest {
     }
 
     @Test
-    public void testShowThatRessortDontExist() {
+    public void rssFetcher_shouldShowThatRessortDontExist() {
         String givenRessort = "BILD";
 
         Assert.assertThrows(IllegalArgumentException.class, () -> systemUnderTest.manageRessortAndReturnUrl(givenRessort));
     }
 
     @Test
-    public void testCreateRssFeedFileWhichIsNotEmpty() throws IOException {
+    public void rssFetcher_shouldReturnRssFeed() throws IOException {
         String givenRessort = "Wissen";
-        File file = new File("rssFeed.xml");
 
-        file.delete();
-        systemUnderTest.fetchXML(givenRessort);
+        String rssFeed = systemUnderTest.fetchXML(givenRessort);
+        int actual = rssFeed.length();
+        int expect = 0;
 
-        Assert.assertTrue(file.exists());
-        Assert.assertNotEquals(0, file.length());
+        Assert.assertNotEquals(expect, actual);
+    }
+
+    @Test
+    public void rssFetcher_fetchLatestRssFeedIfNoRessortGiven() throws IOException {
+        String givenRessort = "";
+
+        String actual = systemUnderTest.manageRessortAndReturnUrl(givenRessort);
+        String expect = "https://www.welt.de/feeds/latest.rss";
+
+
+        Assert.assertEquals(expect, actual);
     }
 }
