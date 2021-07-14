@@ -8,42 +8,77 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class RssReader {
 
-    public List<Article> readMXL(String fileName, int max) {
+    public List<Article> readMXL(String rssFeed, int max) {
+        int numberOfArticles;
+        InputStream stream = new ByteArrayInputStream(rssFeed.getBytes(StandardCharsets.UTF_8));
         try {
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             final DocumentBuilder db = dbf.newDocumentBuilder();
 
             final List<Article> articles = new ArrayList<>();
 
-
-            final Document dom = db.parse(new File(fileName));
+            final Document dom = db.parse(stream);
 
             final Element doc = dom.getDocumentElement();
 
             final NodeList items = doc.getElementsByTagName("item");
 
-            for (int i = 0; i < max && i < items.getLength(); i++) { //TODO fix it
+            if (max != 0) {
+                numberOfArticles = max;
+            } else {
+                numberOfArticles = items.getLength();
+            }
+
+            for (int i = 0; i < numberOfArticles; i++) {
                 final Article article = new Article();
                 Element articleElement = (Element) items.item(i);
+    
+                NodeList title = articleElement.getElementsByTagName("title");
+                NodeList description = articleElement.getElementsByTagName("description");
+                NodeList link = articleElement.getElementsByTagName("link");
+                NodeList ressort = articleElement.getElementsByTagName("category");
+                NodeList pubDate = articleElement.getElementsByTagName("pubDate");
+                NodeList author = articleElement.getElementsByTagName("author");
+
                 try {
-                    NodeList title = articleElement.getElementsByTagName("title");
-                    NodeList description = articleElement.getElementsByTagName("description");
-                    NodeList link = articleElement.getElementsByTagName("link");
-                    NodeList ressort = articleElement.getElementsByTagName("category");
-                    NodeList pubDate = articleElement.getElementsByTagName("pubDate");
-                    NodeList author = articleElement.getElementsByTagName("author");
                     article.setArticleTitle(title.item(0).getTextContent());
-                    article.setArticleDescription(description.item(0).getTextContent());
-                    article.setArticleLink(link.item(0).getTextContent());
-                    article.setArticleRessort(ressort.item(0).getTextContent());
-                    article.setArticlePubDate(pubDate.item(0).getTextContent());
-                    article.setArticleAuthor(author.item(0).getTextContent());
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+
+                try {
+                article.setArticleDescription(description.item(0).getTextContent());
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+
+                try {
+                article.setArticleLink(link.item(0).getTextContent());
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+
+                try {
+                article.setArticleRessort(ressort.item(0).getTextContent());
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+
+                try {
+                article.setArticlePubDate(pubDate.item(0).getTextContent());
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+
+                try {
+                article.setArticleAuthor(author.item(0).getTextContent());
                 } catch (NullPointerException npe) {
 
                 }

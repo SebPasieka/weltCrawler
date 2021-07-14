@@ -6,27 +6,18 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RssFetcher {
     public String fetchXML(String ressort) throws IOException {
         String url = manageRessortAndReturnUrl(ressort);
-        String fileName = "rssFeed.xml";
-
         try (CloseableHttpClient client = HttpClients.createDefault()) {
 
             HttpGet request = new HttpGet(url);
 
             String response = client.execute(request, new BasicResponseHandler());
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-            writer.write(response);
-            writer.close();
-            return fileName;
+            return response;
         }
     }
 
@@ -41,6 +32,10 @@ public class RssFetcher {
 
     public String manageRessortAndReturnUrl(String ressort) throws IllegalArgumentException {
         String url = null;
+
+        if (ressort.isEmpty()) {
+            url = "https://www.welt.de/feeds/latest.rss";
+        }
 
         if (containsCaseInsensitive(ressort, Ressorts.POLITIK.aliases())) {
             url = Ressorts.POLITIK.url();

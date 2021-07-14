@@ -15,10 +15,10 @@ public class App {
         int number = processInput.getNumber(args);
 
         RssFetcher fetch = new RssFetcher();
-        String fileName = fetch.fetchXML(ressort);
+        String rssFeed = fetch.fetchXML(ressort);
 
         RssReader read = new RssReader();
-        List<RssReader.Article> articles = read.readMXL(fileName, number);
+        List<RssReader.Article> articles = read.readMXL(rssFeed, number);
 
         TerminalOutput output = new TerminalOutput();
         output.print(articles);
