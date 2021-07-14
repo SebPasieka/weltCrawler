@@ -3,6 +3,7 @@ package com.github.sebPasieka.weltCrawler.service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,29 +21,35 @@ public class RssReader {
 
             final List<Article> articles = new ArrayList<>();
 
-            final Article article = new Article();
+
             final Document dom = db.parse(new File(fileName));
 
             final Element doc = dom.getDocumentElement();
 
+            final NodeList items = doc.getElementsByTagName("item");
 
-            final Node title = doc.getElementsByTagName("title").item(max);
-            article.articleTitle = title.getTextContent();
+            for (int i = 0; i < max && i < items.getLength(); i++) { //TODO fix it
+                final Article article = new Article();
+                Element articleElement = (Element) items.item(i);
+                try {
+                    NodeList title = articleElement.getElementsByTagName("title");
+                    NodeList description = articleElement.getElementsByTagName("description");
+                    NodeList link = articleElement.getElementsByTagName("link");
+                    NodeList ressort = articleElement.getElementsByTagName("category");
+                    NodeList pubDate = articleElement.getElementsByTagName("pubDate");
+                    NodeList author = articleElement.getElementsByTagName("author");
+                    article.setArticleTitle(title.item(0).getTextContent());
+                    article.setArticleDescription(description.item(0).getTextContent());
+                    article.setArticleLink(link.item(0).getTextContent());
+                    article.setArticleRessort(ressort.item(0).getTextContent());
+                    article.setArticlePubDate(pubDate.item(0).getTextContent());
+                    article.setArticleAuthor(author.item(0).getTextContent());
+                } catch (NullPointerException npe) {
 
-            final Node description = doc.getElementsByTagName("description").item(max);
-            article.articleDescription = description.getTextContent();
+                }
 
-            final Node ressort = doc.getElementsByTagName("category").item(max);
-            article.articleRessort = ressort.getTextContent();
-
-            final Node link = doc.getElementsByTagName("link").item(max);
-            article.articleLink = link.getTextContent();
-
-            final Node pubDate = doc.getElementsByTagName("pubDate").item(max);
-            article.articlePubDate = pubDate.getTextContent();
-
-            final Node author = doc.getElementsByTagName("author").item(max);
-            article.articleAuthor = author.getTextContent();
+                articles.add(article);
+            }
 
             return articles;
         } catch (Exception e) {
