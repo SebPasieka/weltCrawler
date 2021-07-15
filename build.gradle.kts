@@ -17,7 +17,7 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -29,7 +29,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = "com.github.sebPasieka.weltCrawler.App"
+    mainClass.set("com.github.sebPasieka.weltCrawler.App")
 }
 
 tasks.withType<Jar> {
