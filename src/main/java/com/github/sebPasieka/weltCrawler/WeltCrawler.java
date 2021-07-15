@@ -1,16 +1,13 @@
 package com.github.sebPasieka.weltCrawler;
 
+import com.github.sebPasieka.weltCrawler.App.CustomCommandLinePropertySource;
 import com.github.sebPasieka.weltCrawler.service.ProcessInput;
 import com.github.sebPasieka.weltCrawler.service.RssFetcher;
 import com.github.sebPasieka.weltCrawler.service.RssReader;
 import com.github.sebPasieka.weltCrawler.view.TerminalOutput;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.ContextStartedEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,10 +20,10 @@ public class WeltCrawler implements ApplicationListener<ContextRefreshedEvent> {
     private final RssFetcher fetcher;
     private final RssReader reader;
     private final TerminalOutput output;
-    private final SimpleCommandLinePropertySource cli;
+    private final CustomCommandLinePropertySource cli;
 
     @Autowired
-    public WeltCrawler(ProcessInput processInput, RssFetcher fetcher, RssReader reader, TerminalOutput output, SimpleCommandLinePropertySource cli) {
+    public WeltCrawler(ProcessInput processInput, RssFetcher fetcher, RssReader reader, TerminalOutput output, CustomCommandLinePropertySource cli) {
         this.processInput = processInput;
         this.fetcher = fetcher;
         this.reader = reader;
@@ -36,8 +33,9 @@ public class WeltCrawler implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        String ressort = null;// TODO processInput.getRessort(args);
-        int number = 0;// TODO processInput.getNumber(args);
+        List<String> args = cli.getNonOptionArgs();
+        String ressort = processInput.getRessort(args);
+        int number = processInput.getNumber(args);
 
         String rssFeed = null;
         try {
