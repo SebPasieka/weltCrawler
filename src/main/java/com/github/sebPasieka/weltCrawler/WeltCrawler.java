@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
-public class WeltCrawler implements ApplicationListener<ContextRefreshedEvent> {
+public class WeltCrawler {
 
     private final ProcessInput processInput;
     private final RssFetcher fetcher;
@@ -31,8 +31,7 @@ public class WeltCrawler implements ApplicationListener<ContextRefreshedEvent> {
         this.cli = cli;
     }
 
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void crawlWelt() {
         List<String> args = cli.getNonOptionArgs();
         String ressort = processInput.getRessort(args);
         int number = processInput.getNumber(args);
