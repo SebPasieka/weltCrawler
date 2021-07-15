@@ -51,7 +51,6 @@ public class RssFetcherTest {
         String actual = systemUnderTest.manageRessortAndReturnUrl(givenRessort);
         String expect = "https://www.welt.de/feeds/latest.rss";
 
-
         Assert.assertEquals(expect, actual);
     }
 }

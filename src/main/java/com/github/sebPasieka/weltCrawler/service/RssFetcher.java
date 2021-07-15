@@ -33,7 +33,7 @@ public class RssFetcher {
     public String manageRessortAndReturnUrl(String ressort) throws IllegalArgumentException {
         String url = null;
 
-        if (ressort.isEmpty()) {
+        if (ressort == null || ressort.isEmpty()) {
             url = "https://www.welt.de/feeds/latest.rss";
         }
 

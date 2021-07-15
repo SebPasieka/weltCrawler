@@ -8,9 +8,13 @@ public class TerminalOutput {
 
     public void print(List<RssReader.Article> articles) {
         for (RssReader.Article article : articles) {
-            System.out.println("Kategorie: " + article.getArticleRessort());
+            if (article.getArticleCategory() != null) {
+                System.out.println("Kategorie: " + article.getArticleCategory());
+            }
             System.out.println("Titel: " + article.getArticleTitle() + " | vom: " + article.getArticlePubDate());
-            System.out.println("Beschreibung: " + article.getArticleDescription());
+            if (article.getArticleDescription() != null) {
+                System.out.println("Beschreibung: " + article.getArticleDescription());
+            }
             if (article.getArticleAuthor() != null) {
                 System.out.println("Author: " + article.getArticleAuthor());
             }

@@ -11,8 +11,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class TerminalOutputTest {
     TerminalOutput systemUnderTest = new TerminalOutput();
 
@@ -33,7 +31,7 @@ public class TerminalOutputTest {
     public void print_shouldDontPrintAuthorIfAuthorIsNull() {
         List<RssReader.Article> articles = new ArrayList<>();
         RssReader.Article article = new RssReader.Article();
-        article.setArticleRessort("testRessort");
+        article.setArticleCategory("testRessort");
         article.setArticleTitle("testTitle");
         article.setArticlePubDate("testPubDate");
         article.setArticleDescription("testDescription");

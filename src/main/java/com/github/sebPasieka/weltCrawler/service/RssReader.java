@@ -2,7 +2,6 @@ package com.github.sebPasieka.weltCrawler.service;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,9 +15,7 @@ import java.util.List;
 public class RssReader {
 
     public List<Article> readMXL(String rssFeed, int max) {
-        int numberOfArticles;
-        InputStream stream = new ByteArrayInputStream(rssFeed.getBytes(StandardCharsets.UTF_8));
-        try {
+        try (InputStream stream = new ByteArrayInputStream(rssFeed.getBytes(StandardCharsets.UTF_8))) {
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             final DocumentBuilder db = dbf.newDocumentBuilder();
 
@@ -30,6 +27,8 @@ public class RssReader {
 
             final NodeList items = doc.getElementsByTagName("item");
 
+            int numberOfArticles;
+
             if (max != 0) {
                 numberOfArticles = max;
             } else {
@@ -39,48 +38,43 @@ public class RssReader {
             for (int i = 0; i < numberOfArticles; i++) {
                 final Article article = new Article();
                 Element articleElement = (Element) items.item(i);
-    
+
                 NodeList title = articleElement.getElementsByTagName("title");
                 NodeList description = articleElement.getElementsByTagName("description");
                 NodeList link = articleElement.getElementsByTagName("link");
-                NodeList ressort = articleElement.getElementsByTagName("category");
+                NodeList category = articleElement.getElementsByTagName("category");
                 NodeList pubDate = articleElement.getElementsByTagName("pubDate");
                 NodeList author = articleElement.getElementsByTagName("author");
 
                 try {
                     article.setArticleTitle(title.item(0).getTextContent());
+                    article.setArticleLink(link.item(0).getTextContent());
                 } catch (NullPointerException npe) {
-                    npe.printStackTrace();
+                    continue;
                 }
 
                 try {
-                article.setArticleDescription(description.item(0).getTextContent());
+                    article.setArticleDescription(description.item(0).getTextContent());
                 } catch (NullPointerException npe) {
-                    npe.printStackTrace();
+                    // nothing to do
                 }
 
                 try {
-                article.setArticleLink(link.item(0).getTextContent());
+                    article.setArticleCategory(category.item(0).getTextContent());
                 } catch (NullPointerException npe) {
-                    npe.printStackTrace();
+                    // nothing to do
                 }
 
                 try {
-                article.setArticleRessort(ressort.item(0).getTextContent());
+                    article.setArticlePubDate(pubDate.item(0).getTextContent());
                 } catch (NullPointerException npe) {
-                    npe.printStackTrace();
+                    // nothing to do
                 }
 
                 try {
-                article.setArticlePubDate(pubDate.item(0).getTextContent());
+                    article.setArticleAuthor(author.item(0).getTextContent());
                 } catch (NullPointerException npe) {
-                    npe.printStackTrace();
-                }
-
-                try {
-                article.setArticleAuthor(author.item(0).getTextContent());
-                } catch (NullPointerException npe) {
-
+                    // nothing to do
                 }
 
                 articles.add(article);
@@ -99,7 +93,7 @@ public class RssReader {
         private String articleLink;
         private String articlePubDate;
         private String articleAuthor;
-        private String articleRessort;
+        private String articleCategory;
         private String articleDescription;
 
         public String getArticleTitle() {
@@ -134,12 +128,12 @@ public class RssReader {
             this.articleAuthor = articleAuthor;
         }
 
-        public String getArticleRessort() {
-            return articleRessort;
+        public String getArticleCategory() {
+            return articleCategory;
         }
 
-        public void setArticleRessort(String articleRessort) {
-            this.articleRessort = articleRessort;
+        public void setArticleCategory(String articleRessort) {
+            this.articleCategory = articleRessort;
         }
 
         public String getArticleDescription() {

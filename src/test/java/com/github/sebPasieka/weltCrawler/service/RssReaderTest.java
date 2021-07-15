@@ -80,7 +80,7 @@ public class RssReaderTest {
     }
 
     @Test
-    public void readXml_shouldReturnEmptyListIfXmlIsNotFound() {  // TODO handle empty "file" [Fatal Error]
+    public void readXml_shouldReturnEmptyListIfXmlIsNotFound() {
         String emptyXml = "";
         List<RssReader.Article> articleList = systemUnderTest.readMXL(emptyXml, 0);
 
