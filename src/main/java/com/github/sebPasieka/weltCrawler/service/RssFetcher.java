@@ -5,10 +5,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
 public class RssFetcher {
     public String fetchXML(String ressort) throws IOException {
         String url = manageRessortAndReturnUrl(ressort);

@@ -1,9 +1,11 @@
 package com.github.sebPasieka.weltCrawler.view;
 
 import com.github.sebPasieka.weltCrawler.service.RssReader;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TerminalOutput {
 
     public void print(List<RssReader.Article> articles) {

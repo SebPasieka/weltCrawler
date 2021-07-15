@@ -1,6 +1,8 @@
 package com.github.sebPasieka.weltCrawler.service;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProcessInput {
     public String getRessort(String[] args) {
         String ressort = "";

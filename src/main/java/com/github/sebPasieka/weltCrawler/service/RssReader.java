@@ -1,5 +1,6 @@
 package com.github.sebPasieka.weltCrawler.service;
 
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class RssReader {
 
     public List<Article> readMXL(String rssFeed, int max) {
