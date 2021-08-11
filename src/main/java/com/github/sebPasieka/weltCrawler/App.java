@@ -25,13 +25,18 @@ public class App implements InitializingBean {
         this.weltCrawler = weltCrawler;
     }
 
-    public void execute() throws Exception {
+    public void executeCLI() {
         weltCrawler.crawlWelt();
+
+    }
+
+    public void executeServer() throws Exception {
+        weltCrawler.runServer();
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        execute();
+        executeServer();
     }
 
     public static class CustomCommandLinePropertySource extends SimpleCommandLinePropertySource {

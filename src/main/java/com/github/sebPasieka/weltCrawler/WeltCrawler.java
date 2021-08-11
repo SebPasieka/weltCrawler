@@ -36,7 +36,7 @@ public class WeltCrawler {
         this.runServer = runServer;
     }
 
-    public void crawlWelt() throws Exception {
+    public void crawlWelt() {
         List<String> args = cli.getNonOptionArgs();
         String ressort = processInput.getRessort(args);
         int number = processInput.getNumber(args);
@@ -50,7 +50,19 @@ public class WeltCrawler {
 
         List<RssReader.Article> articles = reader.readMXL(rssFeed, number);
 
-        //output.print(articles);
+        output.print(articles);
+    }
+
+    public void runServer() throws Exception {
+        String rssFeed = null;
+        try {
+            rssFeed = fetcher.fetchXML(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        List<RssReader.Article> articles = reader.readMXL(rssFeed, 0);
+
         ContextHandler content = serverOutput.serverPrint(articles);
         runServer.startServer(content);
     }
