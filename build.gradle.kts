@@ -24,8 +24,10 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.13.2")
+
     implementation("org.apache.httpcomponents:httpclient:4.5.13")
     implementation("org.springframework:spring-context:5.3.9")
+    implementation("org.eclipse.jetty:jetty-server:9.4.26.v20200117")
 }
 
 application {
@@ -37,5 +39,12 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "com.github.sebPasieka.weltCrawler.App"
     }
+
+    from(configurations.runtimeClasspath.get()
+        .map {if (it.isDirectory) it else zipTree(it)}
+    )
+
+    duplicatesStrategy = DuplicatesStrategy.WARN
 }
+
 

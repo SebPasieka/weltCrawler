@@ -25,7 +25,7 @@ public class App implements InitializingBean {
         this.weltCrawler = weltCrawler;
     }
 
-    public void execute() {
+    public void execute() throws Exception {
         weltCrawler.crawlWelt();
     }
 
