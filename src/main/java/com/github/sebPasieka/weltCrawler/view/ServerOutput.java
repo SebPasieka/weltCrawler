@@ -1,47 +1,64 @@
 package com.github.sebPasieka.weltCrawler.view;
 
+import com.github.sebPasieka.weltCrawler.service.RssFetcher;
 import com.github.sebPasieka.weltCrawler.service.RssReader;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Component
-public class ServerOutput {
+public class ServerOutput extends ContextHandler{
 
-    public ContextHandler serverPrint(List< RssReader.Article> articles) throws Exception {
-        final ContextHandler context = new ContextHandler("/api/content");
-        context.setHandler(new AbstractHandler() {
+    private final RssFetcher fetcher;
+    private final RssReader reader;
+
+    @Autowired
+    public ServerOutput(RssFetcher fetcher, RssReader reader) {
+        super("/api/content");
+        this.fetcher = fetcher;
+        this.reader = reader;
+        this.setHandler(createAbstractHandler());
+    }
+
+    private AbstractHandler createAbstractHandler() {
+        return new AbstractHandler() {
 
             @Override
             public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-                for (RssReader.Article article : articles) {
-                    if (article.getArticleCategory() != null) {
-                        response.getWriter().println(article.getArticleCategory());
-                    }
+                String ressort = request.getParameter("ressort");
+                String stringNumber = request.getParameter("number");
+                int number = 0;
 
-                    response.getWriter().println(article.getArticleTitle());
-                    response.getWriter().println(article.getArticlePubDate());
-                    if (article.getArticleDescription() != null) {
-                        response.getWriter().println(article.getArticleDescription());
-                    }
-
-                    if (article.getArticleAuthor() != null) {
-                        response.getWriter().println(article.getArticleAuthor());
-                    }
-
-                    response.getWriter().println(article.getArticleLink());
+                if (stringNumber != null) {
+                    number = Integer.parseInt(stringNumber);
                 }
+
+                String rssFeed = fetcher.fetchXML(ressort);
+                List<RssReader.Article> articles = reader.readMXL(rssFeed, number);
+
+                PrintWriter writer = response.getWriter();
+
+                for (RssReader.Article article : articles) {
+                    writer.println(article.getArticleCategory());
+                    writer.println(article.getArticleTitle());
+                    writer.println(article.getArticlePubDate());
+                    writer.println(article.getArticleDescription());
+                    writer.println(article.getArticleAuthor());
+                    writer.println(article.getArticleLink());
+                }
+                
+                writer.flush();
 
                 baseRequest.setHandled(true);
             }
-        });
-        return context;
+        };
     }
-
 }

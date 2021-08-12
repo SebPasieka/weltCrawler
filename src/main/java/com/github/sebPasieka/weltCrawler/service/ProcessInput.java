@@ -2,8 +2,7 @@ package com.github.sebPasieka.weltCrawler.service;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class ProcessInput {

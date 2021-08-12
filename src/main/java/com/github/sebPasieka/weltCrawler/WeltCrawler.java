@@ -4,10 +4,7 @@ import com.github.sebPasieka.weltCrawler.App.CustomCommandLinePropertySource;
 import com.github.sebPasieka.weltCrawler.service.ProcessInput;
 import com.github.sebPasieka.weltCrawler.service.RssFetcher;
 import com.github.sebPasieka.weltCrawler.service.RssReader;
-import com.github.sebPasieka.weltCrawler.service.RunServer;
-import com.github.sebPasieka.weltCrawler.view.ServerOutput;
 import com.github.sebPasieka.weltCrawler.view.TerminalOutput;
-import org.eclipse.jetty.server.handler.ContextHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,18 +19,15 @@ public class WeltCrawler {
     private final RssReader reader;
     private final TerminalOutput output;
     private final CustomCommandLinePropertySource cli;
-    private final ServerOutput serverOutput;
-    private final RunServer runServer;
+
 
     @Autowired
-    public WeltCrawler(ProcessInput processInput, RssFetcher fetcher, RssReader reader, TerminalOutput output, CustomCommandLinePropertySource cli, ServerOutput serverOutput, RunServer runServer) {
+    public WeltCrawler(ProcessInput processInput, RssFetcher fetcher, RssReader reader, TerminalOutput output, CustomCommandLinePropertySource cli) {
         this.processInput = processInput;
         this.fetcher = fetcher;
         this.reader = reader;
         this.output = output;
         this.cli = cli;
-        this.serverOutput = serverOutput;
-        this.runServer = runServer;
     }
 
     public void crawlWelt() {
@@ -51,19 +45,5 @@ public class WeltCrawler {
         List<RssReader.Article> articles = reader.readMXL(rssFeed, number);
 
         output.print(articles);
-    }
-
-    public void runServer() throws Exception {
-        String rssFeed = null;
-        try {
-            rssFeed = fetcher.fetchXML(null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        List<RssReader.Article> articles = reader.readMXL(rssFeed, 0);
-
-        ContextHandler content = serverOutput.serverPrint(articles);
-        runServer.startServer(content);
     }
 }
