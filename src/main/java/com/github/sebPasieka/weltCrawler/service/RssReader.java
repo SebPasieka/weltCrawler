@@ -31,10 +31,10 @@ public class RssReader {
 
             int numberOfArticles;
 
-            if (max != 0) {
-                numberOfArticles = max;
-            } else {
+            if (max == 0) {
                 numberOfArticles = items.getLength();
+            } else {
+                numberOfArticles = Math.min(max, items.getLength());
             }
 
             for (int i = 0; i < numberOfArticles; i++) {
