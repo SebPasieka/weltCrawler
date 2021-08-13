@@ -28,6 +28,7 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient:4.5.13")
     implementation("org.springframework:spring-context:5.3.9")
     implementation("org.eclipse.jetty:jetty-server:9.4.26.v20200117")
+    implementation("com.google.code.gson:gson:2.8.7")
 }
 
 application {

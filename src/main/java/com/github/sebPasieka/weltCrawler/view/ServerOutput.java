@@ -2,6 +2,7 @@ package com.github.sebPasieka.weltCrawler.view;
 
 import com.github.sebPasieka.weltCrawler.service.RssFetcher;
 import com.github.sebPasieka.weltCrawler.service.RssReader;
+import com.google.gson.Gson;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -22,10 +23,16 @@ public class ServerOutput extends ContextHandler{
 
     @Autowired
     public ServerOutput(RssFetcher fetcher, RssReader reader) {
-        super("/api/content");
+        super("/api/search");
         this.fetcher = fetcher;
         this.reader = reader;
         this.setHandler(createAbstractHandler());
+    }
+
+    public static class ArticleSchema {
+
+        public List<RssReader.Article> articles;
+
     }
 
     private AbstractHandler createAbstractHandler() {
@@ -44,17 +51,18 @@ public class ServerOutput extends ContextHandler{
                 String rssFeed = fetcher.fetchXML(ressort);
                 List<RssReader.Article> articles = reader.readMXL(rssFeed, number);
 
+                response.setCharacterEncoding("UTF-8");
+                response.addHeader("Content-Type", "application/json" );
+
                 PrintWriter writer = response.getWriter();
 
-                for (RssReader.Article article : articles) {
-                    writer.println(article.getArticleCategory());
-                    writer.println(article.getArticleTitle());
-                    writer.println(article.getArticlePubDate());
-                    writer.println(article.getArticleDescription());
-                    writer.println(article.getArticleAuthor());
-                    writer.println(article.getArticleLink());
-                }
-                
+                Gson gson = new Gson();
+
+                ArticleSchema schema = new ArticleSchema();
+                schema.articles = articles;
+
+                gson.toJson(schema, writer);
+
                 writer.flush();
 
                 baseRequest.setHandled(true);
