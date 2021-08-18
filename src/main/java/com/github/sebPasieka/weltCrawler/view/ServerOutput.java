@@ -53,7 +53,9 @@ public class ServerOutput extends ContextHandler{
 
                 response.setCharacterEncoding("UTF-8");
                 response.addHeader("Content-Type", "application/json" );
-                response.addHeader("Access-Control-Allow-Origin", "*");
+                response.setHeader("Access-Control-Allow-Origin", "*");
+                response.setHeader("Access-Control-Allow-Methods", "GET, POST");
+                response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type, Authorization");
 
                 PrintWriter writer = response.getWriter();
 
