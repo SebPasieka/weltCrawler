@@ -53,6 +53,7 @@ public class ServerOutput extends ContextHandler{
 
                 response.setCharacterEncoding("UTF-8");
                 response.addHeader("Content-Type", "application/json" );
+                response.addHeader("Access-Control-Allow-Origin", "*");
 
                 PrintWriter writer = response.getWriter();
 
